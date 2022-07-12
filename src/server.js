@@ -16,14 +16,15 @@ const httpServer = http.createServer(app);
 const wsServer = SocketIO(httpServer);
 
 wsServer.on("connection", (socket) => {
-  socket["nickname"] = "Anon";
+  socket["nickname"] = "Anonymous";
   socket.onAny((event) => {
     console.log(`Socket Event: ${event}`);
   });
-  socket.on("enter_room", (roomName, show) => {
+  socket.on("enter_room", (roomName, nickname, done) => {
+    socket["nickname"] = nickname;
     socket.join(roomName);
-    show();
     socket.to(roomName).emit("welcome", socket.nickname);
+    done();
   });
   socket.on("disconnecting", () => {
     socket.rooms.forEach((room) =>
@@ -36,6 +37,8 @@ wsServer.on("connection", (socket) => {
   });
   socket.on("nickname", (nickname) => (socket["nickname"] = nickname));
 });
+
+httpServer.listen(4000, handleListen);
 
 // WebSocket Part
 // const wss = new WebSocket.Server({ server });
@@ -57,5 +60,3 @@ wsServer.on("connection", (socket) => {
 //     }
 //   });
 // });
-
-httpServer.listen(4000, handleListen);
