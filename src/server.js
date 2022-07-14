@@ -5,6 +5,10 @@ import { instrument } from "@socket.io/admin-ui";
 
 const app = express();
 
+app.use(express.static("public"));
+
+// app.use(express.static(path.join(__dirname, "public")));
+
 app.set("view engine", "pug");
 app.set("views", __dirname + "/views");
 app.use("/public", express.static(__dirname + "/public"));

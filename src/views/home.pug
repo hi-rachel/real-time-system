@@ -1,27 +1,53 @@
 doctype html
 html(lang="en")
     head
+        style
+            
+            include ../css/home.css
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Noom
-        link(rel="stylesheet", href="https://unpkg.com/mvp.css")
+        title Real Time Chat
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200")
+        link(rel="preconnect" href="https://fonts.googleapis.com")
+        link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+        link(href="https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap" rel="stylesheet")
+        link(rel="preconnect" href="https://fonts.googleapis.com")
+        link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+        link(href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet")
+        //- link(rel="stylesheet" href="home.css")
+        //- link(rel="stylesheet", href="https://unpkg.com/mvp.css")
     body 
         header
-            h1 Noom
+            h1 Ice Cream Chat
+            h4 Enjoy our chat with sweet dessert. Have a good time!
         main
             div#welcome 
                 form#enter_room
-                    input#room_name(placeholder="Room Name", required, type="text")
-                    input#name(placeholder="Your Nickname", required, type="text")
+                    input#room_name(placeholder="Type Room Name", required, type="text", maxlength="40")
+                    input#name(placeholder="Set Your Nickname", required, type="text", maxlength="20")
                     button Enter Room
-                h4 Open Rooms:
-                ul
-            div#room 
-                    h3
+                    h4 🧁 Open Rooms:
                     ul
+                img#iceCream(src="../public/iceCream.png" alt="ice cream")
+            div#room
+                div#Head
+                    div#roomHead
+                        a(href="/" title="Leave Chat Room")
+                            span.material-symbols-outlined logout
+                        h3
+                    div#setNickname
+                        h4
+                        span.material-symbols-outlined settings
+                form#nameChange
+                    input(placeholder="nickname", required, type="text", maxlength="20")
+                    button Change
+                div#msgBox
+                    ul
+                div#chat
                     form#msg
-                        input(placeholder="message", required, type="text")
+                        input(placeholder="message", required, type="text", maxlength="150")
                         button Send 
         script(src="/socket.io/socket.io.js")
         script(src="/public/js/app.js")

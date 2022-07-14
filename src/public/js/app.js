@@ -3,6 +3,10 @@ const socket = io();
 const welcome = document.getElementById("welcome");
 const enterRoom = welcome.querySelector("#enter_room");
 const room = document.getElementById("room");
+const currentNickname = document.getElementById("name");
+const changeNickname = document.querySelector("#nameChange");
+const setting = document.querySelector("#setNickname span");
+const changeCompleted = document.querySelector("#nameChange button");
 
 room.hidden = true;
 
@@ -35,7 +39,7 @@ function showRoom(newCount) {
   welcome.hidden = true;
   room.hidden = false;
   const h3 = room.querySelector("h3");
-  h3.innerText = `Room ${roomName}(${newCount})`;
+  h3.innerText = `Room Name : ${roomName} (Participating User : ${newCount})`;
   const msgForm = room.querySelector("#msg");
   msgForm.addEventListener("submit", handleMessageSubmit);
 }
@@ -48,10 +52,39 @@ function handleRoomSubmit(event) {
   roomName = roomNameInput.value;
   roomNameInput.value = "";
   nickname = nicknameInput.value;
-  roomNameInput.value = "";
+  const h4 = room.querySelector("h4");
+  h4.innerText = `Your nickname : ${nickname}`;
+  const title = document.querySelector("header");
+  title.style.display = "none";
+}
+
+function handleSetting() {
+  // event.preventDefault();
+  changeNickname.style.display = "block";
+}
+
+function handleChangeCompleted() {
+  // event.preventDefault();
+  changeNickname.style.display = "none";
+}
+
+function handleNewnameSubmit(event) {
+  event.preventDefault();
+  const newNameInput = room.querySelector("#nameChange input");
+  nickname = newNameInput.value;
+  socket.emit("nickname", nickname);
+  const h4 = room.querySelector("#setNickname h4");
+  h4.innerText = `Your nickname: ${nickname}`;
+  newNameInput.value = "";
 }
 
 enterRoom.addEventListener("submit", handleRoomSubmit);
+
+setting.addEventListener("click", handleSetting);
+
+changeCompleted.addEventListener("click", handleChangeCompleted);
+
+changeNickname.addEventListener("submit", handleNewnameSubmit);
 
 socket.on("welcome", (user, newCount) => {
   const h3 = room.querySelector("h3");
@@ -75,8 +108,7 @@ socket.on("room_change", (rooms) => {
   }
   rooms.forEach((room) => {
     const li = document.createElement("li");
-    li.innerText = room;
+    li.innerText = `🍦 ${room}`;
     roomList.append(li);
   });
 });
-// (msg) => console.log(msg) = console.log
