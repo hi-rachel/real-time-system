@@ -4,7 +4,10 @@
   "description": "Zoom Clone using WebRTC and Websockets",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon"
+    "build": "webpack",
+    "dev": "nodemon",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.6",
@@ -19,5 +22,6 @@
     "pug": "^3.0.2",
     "socket.io": "^4.5.1",
     "ws": "^8.8.0"
-  }
+  },
+  "homepage": "http://hi-rachel.github.io/real-time-system/"
 }
