@@ -3,7 +3,6 @@ const socket = io();
 const welcome = document.getElementById("welcome");
 const enterRoom = welcome.querySelector("#enter_room");
 const room = document.getElementById("room");
-const currentNickname = document.getElementById("name");
 const changeNickname = document.querySelector("#nameChange");
 const setting = document.querySelector("#setNickname span");
 const changeCompleted = document.querySelector("#nameChange button");
@@ -17,12 +16,6 @@ function addMessage(message) {
   const li = document.createElement("li");
   li.innerText = message;
   ul.appendChild(li);
-}
-
-function handleNicknameSubmit(event) {
-  event.preventDefault();
-  const input = welcome.querySelector("#name input");
-  socket.emit("nickname", input.value);
 }
 
 function handleMessageSubmit(event) {
@@ -59,12 +52,10 @@ function handleRoomSubmit(event) {
 }
 
 function handleSetting() {
-  // event.preventDefault();
   changeNickname.style.display = "block";
 }
 
 function handleChangeCompleted() {
-  // event.preventDefault();
   changeNickname.style.display = "none";
 }
 
