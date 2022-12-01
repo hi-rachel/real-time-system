@@ -7,8 +7,6 @@ const app = express();
 
 app.use(express.static("public"));
 
-// app.use(express.static(path.join(__dirname, "public")));
-
 app.set("view engine", "pug");
 app.set("views", __dirname + "/views");
 app.use("/public", express.static(__dirname + "/public"));
@@ -46,12 +44,6 @@ function publicRooms() {
 function countRoom(roomName) {
   return wsServer.sockets.adapter.rooms.get(roomName)?.size;
 }
-// = optional chaining(?.) =
-// if (wsServer.sockets.adapter.rooms.get(roomName)) {
-//   return wsServer.sockets.adapter.rooms.get(roomName).size;
-// } else {
-//   return undefined;
-// }
 
 wsServer.on("connection", (socket) => {
   socket["nickname"] = "Anonymous";
